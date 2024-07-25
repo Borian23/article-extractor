@@ -74,8 +74,10 @@ export default async (inputHtml, inputUrl = '', parserOptions = {}) => {
     return null
   }
 
-  // choose the best url, which one looks like title the most
-  const bestUrl = chooseBestUrl(links, title)
+  const purifiedInputUrl = (inputUrl != '') ? purifyUrl(inputUrl) : '';
+
+  // if inputUrl is empty choose the best url, which one looks like title the most or set inputUrl as bestUrl
+  const bestUrl = (purifiedInputUrl != '') ? purifiedInputUrl : chooseBestUrl(links, title)
 
   const fns = pipe(
     (input) => {
